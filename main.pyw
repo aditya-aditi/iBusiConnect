@@ -27,17 +27,21 @@ def addingclient():
     new_id = 1 if max_id is None else max_id["_id"] + 1
 
     clientInfo = {"_id": new_id, "client_name": nameEntry.get(), "client_address": addressEntry.get(), "client_phone": phoneEntry.get()}
-    myclientcol.insert_one(clientInfo)
-    
-    showinfo('Alert!', 'Client Added Successfully')
+    if clientInfo["client_name"] == "" or clientInfo["client_address"] == "" or clientInfo["client_phone"] == "":
+        showinfo("Error!", "Please enter all the details of the client")
+    else:
+        myclientcol.insert_one(clientInfo)
+        showinfo('Alert!', 'Client Added Successfully')
 
 
 
 def addSales():
     salesInfo = {"client_id": clientIdEntry.get(), "sale_date": saleDateEntry.get(), "item_bought": itemBoughtEntry.get()}
-    mysalescol.insert_one(salesInfo)
-
-    showinfo('Alert!', 'Sale Added Successfully')
+    if salesInfo["client_id"] == "" or salesInfo["sale_date"] == "" or salesInfo["item_bought"] == "":
+        showinfo("Error!", "Please enter all the data!")
+    else:
+        mysalescol.insert_one(salesInfo)
+        showinfo('Alert!', 'Sale Added Successfully')
 
 def refresh_data_clients():
     # Clear the Treeview
